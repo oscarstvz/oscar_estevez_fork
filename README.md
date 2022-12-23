@@ -1,4 +1,4 @@
-# Sample Implementation of Hexagonal Architecture in a GtMotive Microservice
+# Sample Implementation of Hexagonal Architecture in a Microservice
 ## Index
 ### [Introduction](#introduction)
 ### [Clean Architecture](#clean-architecture)
