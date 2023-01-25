@@ -58,7 +58,7 @@ This architectural style uses a notion of port and adapter. Thus, it is also ref
 
 ![hexagonal-architecture.png](/.attachments/hexagonal-architecture.png)
 
-The hexagon is the application itself. Saying ìhexagonî and saying ìapplicationî is the same thing. Inside the hexagon we just have the things that are important for the business problem that the application is trying to solve. The hexagon contains the business logic, with no references to any technology, framework or real world device. So the application is technology agnostic.
+The hexagon is the application itself. Saying ‚Äúhexagon‚Äù and saying ‚Äúapplication‚Äù is the same thing. Inside the hexagon we just have the things that are important for the business problem that the application is trying to solve. The hexagon contains the business logic, with no references to any technology, framework or real world device. So the application is technology agnostic.
 
 Outside the hexagon we have any real world thing that the application interacts with. These things include humans, other applications, or any hardware/software device. They are the actors. Actors are arranged around the hexagon depending on who triggers the interaction between the application and the actor.
 
@@ -69,7 +69,7 @@ Actors on the left/top side are Drivers, or Primary Actors. The interaction is t
 Actors on the right/bottom side are Driven Actors, or Secondary Actors. The interaction is triggered by the application. A driven actor provides some functionality needed by the application for implementing the business logic. The Secondary Actors are usually Databases, Cloud Services or other systems.
 
 ### Ports
-Ports are the application boundary, in the picture a port is an edge of the hexagon. From the outside world, actors can only interact with the hexagon ports, they shouldnít be able to access the inside of the hexagon. Ports are interfaces that the application offers to the outside world for allowing actors interact with the application.
+Ports are the application boundary, in the picture a port is an edge of the hexagon. From the outside world, actors can only interact with the hexagon ports, they shouldn‚Äôt be able to access the inside of the hexagon. Ports are interfaces that the application offers to the outside world for allowing actors interact with the application.
 
 ### Adapters
 Actors interact with hexagon ports through adapters using a specific technology. An adapter is a software component that allows a technology to interact with a port of the hexagon. Given a port, there may be an adapter for each desired technology that we want to use. Adapters are outside the application. A driver adapter uses a driver port interface, converting a specific technology request into a technology agnostic request to a driver port.
@@ -87,7 +87,7 @@ When talking about a use case, it does not matter if it a Mobile or a Desktop ap
 On this template the Customer can Register an account then manage the balance by Deposits, Withdrawls and Transfers. A set of use cases is used to describe software. Following the Customer primary actor on the left side, in the middle the Virtual Wallet system and the secondary actors on the right side
 
 ## Design Patterns
-The following design patterns will help us continue to implement use cases consistently. We have implemented examples of all of them in the template-microservices-api-rest project.
+The following design patterns will help us continue to implement use cases consistently. 
 
 ### Controller and Command Pattern
 In a Command-based architecture, Controllers receive Requests and send commands to perform some operationnd we a have separate handler of command that makes the separation of concern and improves the single responsibility as well. 
