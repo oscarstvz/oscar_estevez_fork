@@ -5,7 +5,10 @@ using MongoDB.Driver;
 
 namespace GtMotive.Estimate.Microservice.Infrastructure.MongoDb
 {
-    public class MongoDbContext : IDisposable
+    /// <summary>
+    /// Represents the MongoDB context used for accessing and managing the database collections.
+    /// </summary>
+    public class MongoDbContext : IMongoDbContext, IDisposable
     {
         private readonly MongoDbRunner _runner;
         private readonly IMongoDatabase _database;

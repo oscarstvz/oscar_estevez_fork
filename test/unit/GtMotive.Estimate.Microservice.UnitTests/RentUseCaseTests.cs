@@ -8,11 +8,17 @@ using System;
 
 namespace GtMotive.Estimate.Microservice.UnitTests
 {
+    /// <summary>
+    /// Contains unit tests for the RentUseCase class.
+    /// </summary>
     public class RentUseCaseTests
     {
         private Mock<IRentService> _mockRentService;
         private RentUseCase _rentUseCase;
 
+        /// <summary>
+        /// Sets up the test environment by initializing mock objects and the RentUseCase instance.
+        /// </summary>
         [SetUp]
         public void Setup()
         {
@@ -20,6 +26,9 @@ namespace GtMotive.Estimate.Microservice.UnitTests
             _rentUseCase = new RentUseCase(_mockRentService.Object);
         }
 
+        /// <summary>
+        /// Tests the GetRent method to ensure it returns the correct rent details.
+        /// </summary>
         [Test]
         public void GetRentTest()
         {
@@ -32,6 +41,9 @@ namespace GtMotive.Estimate.Microservice.UnitTests
             Assert.AreEqual(rent.Id, result.Id);
         }
 
+        /// <summary>
+        /// Tests the NewRent method to ensure it correctly creates a new rent.
+        /// </summary>
         [Test]
         public void NewRentTest()
         {
@@ -42,6 +54,9 @@ namespace GtMotive.Estimate.Microservice.UnitTests
             _mockRentService.Verify(x => x.NewRent(It.Is<Rent>(r => r.ClientId == rentDto.ClientId && r.CarId == rentDto.CarId && r.TotalCost == rentDto.TotalCost)), Times.Once);
         }
 
+        /// <summary>
+        /// Tests the FinishRent method to ensure it correctly finishes a rent.
+        /// </summary>
         [Test]
         public void FinishRentTest()
         {

@@ -4,6 +4,9 @@ using Azure.Extensions.AspNetCore.Configuration.Secrets;
 using Azure.Identity;
 using Azure.Security.KeyVault.Secrets;
 using GtMotive.Estimate.Microservice.Api;
+using GtMotive.Estimate.Microservice.ApplicationCore.Interfaces;
+using GtMotive.Estimate.Microservice.ApplicationCore.Services;
+using GtMotive.Estimate.Microservice.ApplicationCore.UseCases;
 using GtMotive.Estimate.Microservice.Host.Configuration;
 using GtMotive.Estimate.Microservice.Host.DependencyInjection;
 using GtMotive.Estimate.Microservice.Infrastructure;
@@ -61,8 +64,8 @@ var appSettings = appSettingsSection.Get<AppSettings>();
 builder.Services.Configure<MongoDbSettings>(builder.Configuration.GetSection("MongoDb"));
 
 builder.Services.AddSingleton<MongoDbContext>();
-builder.Services.AddSingleton<IRentService, RentService>();
-builder.Services.AddSingleton<IVehicleService, VehicleService>();
+builder.Services.AddSingleton<IRentService, RentServices>();
+builder.Services.AddSingleton<IVehicleService, VehicleServices>();
 builder.Services.AddSingleton<IRentUseCase, RentUseCase>();
 builder.Services.AddSingleton<IVehicleUseCase, VehicleUseCase>();
 
@@ -86,9 +89,9 @@ builder.Services.Configure<ForwardedHeadersOptions>(options =>
 JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
 
 builder.Services.AddAuthentication(options =>
-    {
-        options.DefaultScheme = IdentityServerAuthenticationDefaults.AuthenticationScheme;
-    })
+{
+    options.DefaultScheme = IdentityServerAuthenticationDefaults.AuthenticationScheme;
+})
     .AddIdentityServerAuthentication(options =>
     {
         options.Authority = appSettings.JwtAuthority;
