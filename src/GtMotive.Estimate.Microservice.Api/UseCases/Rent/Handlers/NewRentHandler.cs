@@ -1,8 +1,8 @@
-﻿using GtMotive.Estimate.Microservice.ApplicationCore.UseCases.Interfaces;
+﻿using System;
 using GtMotive.Estimate.Microservice.Api.UseCases.Rent.Requests;
 using GtMotive.Estimate.Microservice.Api.UseCases.Rent.Responses;
+using GtMotive.Estimate.Microservice.ApplicationCore.Interfaces;
 using GtMotive.Estimate.Microservice.ApplicationCore.UseCases.Dtos;
-using GtMotive.Estimate.Microservice.ApplicationCore.UseCases;
 
 namespace GtMotive.Estimate.Microservice.Api.UseCases.Rent.Handlers
 {
@@ -17,6 +17,11 @@ namespace GtMotive.Estimate.Microservice.Api.UseCases.Rent.Handlers
 
         public RentResponse Handle(NewRentRequest request)
         {
+            if (request == null)
+            {
+                throw new ArgumentNullException(nameof(request));
+            }
+
             var rentDto = new NewRentInputDto
             {
                 ClientId = request.ClientId,

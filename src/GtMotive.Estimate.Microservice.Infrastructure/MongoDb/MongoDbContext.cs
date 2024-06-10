@@ -1,14 +1,15 @@
 ﻿using System;
-using MongoDB.Driver;
-using Mongo2Go;
 using GtMotive.Estimate.Microservice.Domain.Models;
+using Mongo2Go;
+using MongoDB.Driver;
 
-namespace GtMotive.Estimate.Microservice.Infrastructure.MongoDB
+namespace GtMotive.Estimate.Microservice.Infrastructure.MongoDb
 {
     public class MongoDbContext : IDisposable
     {
         private readonly MongoDbRunner _runner;
         private readonly IMongoDatabase _database;
+        private bool _disposed;
 
         public MongoDbContext()
         {
@@ -28,11 +29,26 @@ namespace GtMotive.Estimate.Microservice.Infrastructure.MongoDB
         }
 
         public IMongoCollection<Rent> Rents => _database.GetCollection<Rent>("Rents");
+
         public IMongoCollection<Vehicle> Vehicles => _database.GetCollection<Vehicle>("Vehicles");
 
         public void Dispose()
         {
-            _runner.Dispose();
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!_disposed)
+            {
+                if (disposing)
+                {
+                    _runner?.Dispose();
+                }
+
+                _disposed = true;
+            }
         }
     }
 }

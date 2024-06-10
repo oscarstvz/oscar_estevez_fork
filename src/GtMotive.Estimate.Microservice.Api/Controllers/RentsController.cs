@@ -1,6 +1,6 @@
-﻿using GtMotive.Estimate.Microservice.Api.UseCases.Rent.Requests;
+﻿using GtMotive.Estimate.Microservice.Api.UseCases.Rent.Handlers;
+using GtMotive.Estimate.Microservice.Api.UseCases.Rent.Requests;
 using GtMotive.Estimate.Microservice.Api.UseCases.Rent.Responses;
-using GtMotive.Estimate.Microservice.Api.UseCases.Rent.Handlers;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GtMotive.Estimate.Microservice.Api.Controllers
@@ -33,11 +33,12 @@ namespace GtMotive.Estimate.Microservice.Api.Controllers
         [HttpPut("{id}/finish")]
         public IActionResult FinishRent(int id, [FromBody] FinishRentRequest request)
         {
-            if (!ModelState.IsValid)
+            if (!ModelState.IsValid || request == null)
             {
                 return BadRequest(ModelState);
             }
 
+            request.Id = id;
             _finishRentHandler.Handle(request);
             return NoContent();
         }

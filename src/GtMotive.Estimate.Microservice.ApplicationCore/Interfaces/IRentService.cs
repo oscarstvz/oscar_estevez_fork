@@ -1,5 +1,4 @@
 ﻿using GtMotive.Estimate.Microservice.Domain.Models;
-using System.Collections.Generic;
 
 namespace GtMotive.Estimate.Microservice.ApplicationCore.Interfaces
 {

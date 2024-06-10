@@ -1,6 +1,7 @@
-﻿using GtMotive.Estimate.Microservice.ApplicationCore.UseCases.Interfaces;
+﻿using System;
 using GtMotive.Estimate.Microservice.Api.UseCases.Vehicle.Requests;
 using GtMotive.Estimate.Microservice.Api.UseCases.Vehicle.Responses;
+using GtMotive.Estimate.Microservice.ApplicationCore.Interfaces;
 using GtMotive.Estimate.Microservice.ApplicationCore.UseCases.Dtos;
 
 namespace GtMotive.Estimate.Microservice.Api.UseCases.Vehicle.Handlers
@@ -16,6 +17,11 @@ namespace GtMotive.Estimate.Microservice.Api.UseCases.Vehicle.Handlers
 
         public VehicleResponse Handle(AddVehicleRequest request)
         {
+            if (request == null)
+            {
+                throw new ArgumentNullException(nameof(request));
+            }
+
             var vehicleDto = new AddVehicleInputDto
             {
                 Model = request.Model,

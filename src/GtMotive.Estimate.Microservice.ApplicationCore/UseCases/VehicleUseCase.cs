@@ -1,8 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 using GtMotive.Estimate.Microservice.ApplicationCore.Interfaces;
 using GtMotive.Estimate.Microservice.ApplicationCore.UseCases.Dtos;
-using GtMotive.Estimate.Microservice.ApplicationCore.UseCases.Interfaces;
 using GtMotive.Estimate.Microservice.Domain.Models;
 
 namespace GtMotive.Estimate.Microservice.ApplicationCore.UseCases
@@ -36,9 +36,9 @@ namespace GtMotive.Estimate.Microservice.ApplicationCore.UseCases
             };
         }
 
-        public List<VehicleOutputDto> GetAllAvailableVehicles()
+        public ReadOnlyCollection<VehicleOutputDto> GetAllAvailableVehicles()
         {
-            return _vehicleService.GetAllAvailableVehicles()
+            var vehicles = _vehicleService.GetAllAvailableVehicles()
                 .Select(vehicle => new VehicleOutputDto
                 {
                     Id = vehicle.Id,
@@ -49,6 +49,8 @@ namespace GtMotive.Estimate.Microservice.ApplicationCore.UseCases
                     Status = vehicle.Status,
                     Comments = vehicle.Comments
                 }).ToList();
+
+            return new ReadOnlyCollection<VehicleOutputDto>(vehicles);
         }
 
         public void AddVehicle(AddVehicleInputDto vehicleDto)

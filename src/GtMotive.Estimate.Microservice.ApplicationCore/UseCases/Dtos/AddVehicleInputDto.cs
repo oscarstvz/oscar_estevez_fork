@@ -11,7 +11,7 @@ namespace GtMotive.Estimate.Microservice.ApplicationCore.UseCases.Dtos
         public string Model { get; set; }
 
         [Required]
-        public int Year { get; set; }
+        public DateTime Year { get; set; }
 
         [Required]
         public string LicensePlate { get; set; }
@@ -21,5 +21,7 @@ namespace GtMotive.Estimate.Microservice.ApplicationCore.UseCases.Dtos
 
         [Required]
         public string Status { get; set; }
+
+        public string Comments { get; set; }
     }
 }

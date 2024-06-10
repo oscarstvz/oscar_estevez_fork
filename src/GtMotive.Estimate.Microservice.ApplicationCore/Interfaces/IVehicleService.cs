@@ -1,15 +1,15 @@
-﻿using GtMotive.Estimate.Microservice.ApplicationCore.UseCases.Dtos;
-using System.Collections.Generic;
+﻿using GtMotive.Estimate.Microservice.Domain.Models;
+using System.Collections.ObjectModel;
 
-namespace GtMotive.Estimate.Microservice.ApplicationCore.UseCases.Interfaces
+namespace GtMotive.Estimate.Microservice.ApplicationCore.Interfaces
 {
-    public interface IVehicleUseCase
+    public interface IVehicleService
     {
-        VehicleOutputDto GetVehicle(int id);
+        void AddVehicle(Vehicle vehicle);
 
-        List<VehicleOutputDto> GetAllAvailableVehicles();
+        Vehicle GetVehicle(int id);
 
-        void AddVehicle(AddVehicleInputDto vehicle);
+        ReadOnlyCollection<Vehicle> GetAllAvailableVehicles();
 
         void DeleteVehicle(int id);
 

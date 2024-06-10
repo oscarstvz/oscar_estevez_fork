@@ -1,35 +1,39 @@
-﻿using MongoDB.Driver;
+﻿using System.Collections.ObjectModel;
 using GtMotive.Estimate.Microservice.ApplicationCore.Interfaces;
 using GtMotive.Estimate.Microservice.Domain.Models;
 using GtMotive.Estimate.Microservice.Infrastructure.MongoDb;
+using MongoDB.Driver;
 
 namespace GtMotive.Estimate.Microservice.ApplicationCore.Services
 {
-    public class VehicleServices : IVehicleService
+    public class VehicleService : IVehicleService
     {
         private readonly IMongoCollection<Vehicle> _vehicles;
 
-        public VehicleServices(MongoDbContext context)
+        public VehicleService(MongoDbContext context)
         {
             _vehicles = context.Vehicles;
         }
 
-        public List<Vehicle> GetAllAvailableVehicles() => _vehicles.Find(v => v.Status == "Available").ToList();
+        public void AddVehicle(Vehicle vehicle)
+        {
+            _vehicles.InsertOne(vehicle);
+        }
 
-        public Vehicle GetVehicle(int id) => _vehicles.Find(v => v.Id == id).FirstOrDefault();
+        public Vehicle GetVehicle(int id) => _vehicles.Find(vehicle => vehicle.Id == id).FirstOrDefault();
 
-        public void AddVehicle(Vehicle vehicle) => _vehicles.InsertOne(vehicle);
+        public ReadOnlyCollection<Vehicle> GetAllAvailableVehicles()
+        {
+            var vehicles = _vehicles.Find(vehicle => vehicle.Status == "Available").ToList();
+            return new ReadOnlyCollection<Vehicle>(vehicles);
+        }
 
-        public void DeleteVehicle(int id) => _vehicles.DeleteOne(v => v.Id == id);
+        public void DeleteVehicle(int id) => _vehicles.DeleteOne(vehicle => vehicle.Id == id);
 
         public void ChangeVehicleStatus(int id, string status)
         {
-            var vehicle = _vehicles.Find(v => v.Id == id).FirstOrDefault();
-            if (vehicle != null)
-            {
-                vehicle.Status = status;
-                _vehicles.ReplaceOne(v => v.Id == id, vehicle);
-            }
+            var update = Builders<Vehicle>.Update.Set(vehicle => vehicle.Status, status);
+            _vehicles.UpdateOne(vehicle => vehicle.Id == id, update);
         }
     }
 }

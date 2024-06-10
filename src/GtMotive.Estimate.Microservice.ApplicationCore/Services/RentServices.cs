@@ -1,7 +1,7 @@
-﻿using MongoDB.Driver;
-using GtMotive.Estimate.Microservice.ApplicationCore.Interfaces;
+﻿using GtMotive.Estimate.Microservice.ApplicationCore.Interfaces;
 using GtMotive.Estimate.Microservice.Domain.Models;
 using GtMotive.Estimate.Microservice.Infrastructure.MongoDb;
+using MongoDB.Driver;
 
 namespace GtMotive.Estimate.Microservice.ApplicationCore.Services
 {

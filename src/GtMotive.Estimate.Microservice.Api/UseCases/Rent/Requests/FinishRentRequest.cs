@@ -2,6 +2,6 @@
 {
     public class FinishRentRequest
     {
-        public int RentId { get; set; }
+        public int Id { get; set; }
     }
 }

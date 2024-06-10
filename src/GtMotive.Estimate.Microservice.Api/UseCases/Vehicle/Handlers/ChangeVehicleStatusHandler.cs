@@ -1,5 +1,6 @@
-﻿using GtMotive.Estimate.Microservice.ApplicationCore.UseCases.Interfaces;
+﻿using System;
 using GtMotive.Estimate.Microservice.Api.UseCases.Vehicle.Requests;
+using GtMotive.Estimate.Microservice.ApplicationCore.Interfaces;
 
 namespace GtMotive.Estimate.Microservice.Api.UseCases.Vehicle.Handlers
 {
@@ -14,6 +15,11 @@ namespace GtMotive.Estimate.Microservice.Api.UseCases.Vehicle.Handlers
 
         public void Handle(int id, ChangeVehicleStatusRequest request)
         {
+            if (request == null)
+            {
+                throw new ArgumentNullException(nameof(request));
+            }
+
             _vehicleUseCase.ChangeVehicleStatus(id, request.Status);
         }
     }

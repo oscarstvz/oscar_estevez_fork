@@ -6,7 +6,7 @@ namespace GtMotive.Estimate.Microservice.ApplicationCore.UseCases.Dtos
     {
         public int Id { get; set; }
         public string Model { get; set; }
-        public int Year { get; set; }
+        public DateTime Year { get; set; }
         public string LicensePlate { get; set; }
         public decimal DailyRentCost { get; set; }
         public string Status { get; set; }
